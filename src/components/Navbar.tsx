@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
             to="/"
             className="text-3xl md:text-4xl font-sans font-bold bg-gradient-to-r from-red-700 to-orange-500 text-transparent bg-clip-text drop-shadow-md"
           >
-            Jaiswal Arts
+            Jaiswal Art
           </Link>
 
           {/* Categories */}

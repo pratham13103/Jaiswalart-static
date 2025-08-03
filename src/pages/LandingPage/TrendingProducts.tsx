@@ -12,6 +12,9 @@ type Product = {
   original_price: number;
   current_price: number;
   slug?: string;
+  rating?: number;
+  stock?: number;
+  shape?: string;
 };
 
 const productMap: { [key: number]: Product } = {
@@ -25,6 +28,9 @@ const productMap: { [key: number]: Product } = {
     original_price: 1500,
     current_price: 1200,
     slug: "floral-mandala",
+    rating: 0,
+    stock: 10,
+    shape: "Square",
   },
   20: {
     id: 20,
@@ -36,28 +42,23 @@ const productMap: { [key: number]: Product } = {
     original_price: 1800,
     current_price: 1400,
     slug: "dancing-warli",
-  },
-  21: {
-    id: 21,
-    name: "Village Scene",
-    artist: "Pratibha Jaiswal",
-    description: "Rustic Indian village captured in sketch",
-    image_url: "/products/sketch21.jpg",
-    category: "Sketches",
-    original_price: 1000,
-    current_price: 850,
-    slug: "village-scene",
+    rating: 0,
+    stock: 8,
+    shape: "Rectangle",
   },
   22: {
     id: 22,
-    name: "Royal Elephant",
+    name: "Electric Lime Black Mirror Mandala",
     artist: "Pratibha Jaiswal",
-    description: "A colorful painting of an Indian elephant",
-    image_url: "/products/painting22.jpg",
-    category: "Paintings",
-    original_price: 2500,
-    current_price: 1999,
-    slug: "royal-elephant",
+    description: "Electric Lime Black Mirror Mandala",
+    original_price: 800,
+    current_price: 699,
+    category: "Mandala Art",
+    image_url: "/products/Electric Lime Black Mirror Mandala.jpeg",
+    rating: 0,
+    stock: 10,
+    slug: "electric-lime-black-mirror-mandala",
+    shape: "Circle",
   },
   23: {
     id: 23,
@@ -69,6 +70,23 @@ const productMap: { [key: number]: Product } = {
     original_price: 2200,
     current_price: 1750,
     slug: "abstract-fusion",
+    rating: 0,
+    stock: 5,
+    shape: "Rectangle",
+  },
+  24: {
+    id: 24,
+    name: "Royal Elephant",
+    artist: "Pratibha Jaiswal",
+    description: "A colorful painting of an Indian elephant",
+    image_url: "/products/painting22.jpg",
+    category: "Paintings",
+    original_price: 2500,
+    current_price: 1999,
+    slug: "royal-elephant",
+    rating: 0,
+    stock: 6,
+    shape: "Rectangle",
   },
 };
 

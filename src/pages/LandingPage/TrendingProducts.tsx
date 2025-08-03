@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { X, ChevronLeft, ChevronRight, MoveRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-// Local mapping of video ID to product data
-const productMap: Record<number, {
+type Product = {
   id: number;
   name: string;
   artist: string;
@@ -13,7 +12,9 @@ const productMap: Record<number, {
   original_price: number;
   current_price: number;
   slug?: string;
-}> = {
+};
+
+const productMap: { [key: number]: Product } = {
   17: {
     id: 17,
     name: "Floral Mandala",
@@ -149,7 +150,7 @@ const TrendingProducts: React.FC = () => {
 
       {/* Overlay Viewer */}
       {selectedIndex !== null && (
-        <div className="fixed inset-0 z-50 bg-[#2a2a2a] flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-[#2a2a2a] flex items-center justify-center p-4 overflow-y-auto">
           <button
             onClick={() => setSelectedIndex(null)}
             className="absolute top-6 right-6 text-white hover:text-gray-300"
@@ -171,52 +172,48 @@ const TrendingProducts: React.FC = () => {
             <ChevronRight size={28} />
           </button>
 
-          <div className="flex flex-col items-center z-10">
-            <div className="flex items-center gap-4 px-8 overflow-hidden">
+          <div className="flex flex-col items-center z-10 w-full">
+            <div className="flex flex-wrap justify-center items-center gap-4 w-full">
               {[getIndex(-2), getIndex(-1)].map((idx) => (
                 <video
                   key={`left-${idx}`}
                   src={`/videos/${videoSources[idx].video}.mp4`}
-                  className="w-[320px] h-[600px] rounded-xl blur-2xl opacity-25 pointer-events-none object-cover"
+                  className="w-24 md:w-[300px] aspect-[9/16] rounded-xl blur-2xl opacity-25 pointer-events-none object-cover"
                   muted
                   playsInline
                 />
               ))}
 
-              <div className="relative">
-                <div className="relative flex">
-                  <video
-                    src={`/videos/${videoSources[selectedIndex].video}.mp4`}
-                    className="w-[460px] h-[800px] rounded-xl border-4 border-white"
-                    autoPlay
-                    loop
-                    controls
-                    playsInline
-                  />
-                  <div className="flex flex-col justify-center items-center gap-6 ml-4">
-                    <button
-                      onClick={() => {
-                        const productId = videoSources[selectedIndex].productId;
-                        const product = productMap[productId];
-                        if (product?.slug) {
-                          navigate(`/order/${product.slug}`);
-                        } else {
-                          alert("Product not found.");
-                        }
-                      }}
-                      className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-lg font-semibold transition"
-                    >
-                      Order Now (COD)
-                    </button>
-                  </div>
-                </div>
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <video
+                  src={`/videos/${videoSources[selectedIndex].video}.mp4`}
+                  className="w-full max-w-[90vw] md:max-w-[460px] aspect-[9/16] rounded-xl border-4 border-white"
+                  autoPlay
+                  loop
+                  controls
+                  playsInline
+                />
+                <button
+                  onClick={() => {
+                    const productId = videoSources[selectedIndex].productId;
+                    const product = productMap[productId];
+                    if (product?.slug) {
+                      navigate(`/order/${product.slug}`);
+                    } else {
+                      alert("Product not found.");
+                    }
+                  }}
+                  className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-lg font-semibold transition"
+                >
+                  Order Now (COD)
+                </button>
               </div>
 
               {[getIndex(1), getIndex(2)].map((idx) => (
                 <video
                   key={`right-${idx}`}
                   src={`/videos/${videoSources[idx].video}.mp4`}
-                  className="w-[320px] h-[600px] rounded-xl blur-2xl opacity-25 pointer-events-none object-cover"
+                  className="w-24 md:w-[300px] aspect-[9/16] rounded-xl blur-2xl opacity-25 pointer-events-none object-cover"
                   muted
                   playsInline
                 />

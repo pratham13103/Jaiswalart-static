@@ -126,7 +126,9 @@ const TrendingProducts: React.FC = () => {
 
   return (
     <div className="mt-24 px-4">
-      <h2 className="text-3xl font-bold text-center mb-10">Trending Products</h2>
+      <h2 className="text-3xl font-bold text-center mb-10">
+        Trending Products
+      </h2>
 
       {/* Horizontal Reel Display */}
       <div className="flex justify-center">
@@ -169,12 +171,15 @@ const TrendingProducts: React.FC = () => {
       {/* Overlay Viewer */}
       {selectedIndex !== null && (
         <div className="fixed inset-0 z-50 bg-[#2a2a2a] flex items-center justify-center p-4 overflow-y-auto">
-          <button
-            onClick={() => setSelectedIndex(null)}
-            className="absolute top-6 right-6 text-white hover:text-gray-300"
-          >
-            <X size={32} />
-          </button>
+          <div className="absolute top-6 right-6 z-[9999]">
+            <button
+              onClick={() => setSelectedIndex(null)}
+              className="text-white hover:text-gray-300 z-[9999]"
+              style={{ pointerEvents: "auto" }}
+            >
+              <X size={32} />
+            </button>
+          </div>
 
           <button
             onClick={handlePrev}

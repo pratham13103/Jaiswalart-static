@@ -18,7 +18,6 @@ import ShippingPolicy from "./pages/Legal/ShippingPolicy";
 import { CartProvider } from "./context/CartContext"; // ✅ Import Cart Context
 import AllProducts from "./pages/AllProducts";
 import EditProduct from "./pages/EditProduct";
-import ProtectedRoute from "./components/ProtectedRoute"; // ✅ use this
 import UnderDevelopment from "./pages/UnderDevelopment"; 
 import OrderForm from "./pages/OrderForm"; 
 

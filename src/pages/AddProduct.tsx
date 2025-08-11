@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import productData from "../data/products.json"; // same as EditProduct
 
 const AddProduct: React.FC = () => {
   const [product, setProduct] = useState({
@@ -52,7 +53,7 @@ const AddProduct: React.FC = () => {
     if (product.image) {
       try {
         base64Image = await convertImageToBase64(product.image);
-      } catch (err) {
+      } catch {
         setMessage("Failed to process image.");
         return;
       }
@@ -73,12 +74,16 @@ const AddProduct: React.FC = () => {
       rating: 4,
     };
 
-    const existing = localStorage.getItem("products");
-    const productList = existing ? JSON.parse(existing) : [];
-    productList.push(newProduct);
-    localStorage.setItem("products", JSON.stringify(productList));
+    // Load products from localStorage or fallback to products.json
+    const storedProducts = localStorage.getItem("products");
+    const products = storedProducts
+      ? JSON.parse(storedProducts)
+      : productData;
 
-    setMessage("Product added locally!");
+    const updatedProducts = [...products, newProduct];
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
+
+    setMessage("✅ Product added successfully!");
     setProduct({
       name: "",
       artist: "",
@@ -91,7 +96,7 @@ const AddProduct: React.FC = () => {
       image: null,
     });
 
-    setTimeout(() => navigate("/admin"), 1000);
+    setTimeout(() => navigate("/admin"), 800);
   };
 
   return (
@@ -99,7 +104,10 @@ const AddProduct: React.FC = () => {
       <h2 className="text-3xl font-bold mb-6 text-center">Add New Product</h2>
       {message && <p className="text-center text-green-600 mb-4">{message}</p>}
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
         <div className="space-y-4">
           <input
             type="text"

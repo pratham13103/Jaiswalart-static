@@ -24,7 +24,13 @@ const EditProduct: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const found = productData.find((p) => p.id === Number(id));
+    // Try to get updated products from localStorage first
+    const storedProducts = localStorage.getItem("products");
+    const products = storedProducts
+      ? JSON.parse(storedProducts)
+      : productData;
+
+    const found = products.find((p: Product) => p.id === Number(id));
     if (found) {
       setProduct(found);
     }
@@ -49,7 +55,7 @@ const EditProduct: React.FC = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!product || !e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
-    const fakePath = URL.createObjectURL(file); // temporary image preview
+    const fakePath = URL.createObjectURL(file);
     setProduct({ ...product, image_url: fakePath });
   };
 
@@ -62,10 +68,20 @@ const EditProduct: React.FC = () => {
     e.preventDefault();
     if (!product) return;
 
-    // Just log the updated product for now
+    // Update products in localStorage
+    const storedProducts = localStorage.getItem("products");
+    const products = storedProducts
+      ? JSON.parse(storedProducts)
+      : productData;
+
+    const updatedProducts = products.map((p: Product) =>
+      p.id === product.id ? product : p
+    );
+
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
+
     console.log("Updated Product:", product);
 
-    // Navigate back to admin page
     navigate("/admin");
   };
 

@@ -43,7 +43,6 @@ const App: React.FC = () => {
               <Route path="/custom-orders" element={<CustomOrder />} /> {/* ✅ Add Custom Order Route */}
               <Route path="/all-products" element={<AllProducts />} />
               <Route path="/edit-product/:id" element={<EditProduct />} />
-              <Route path="/edit-product/:id" element={<ProtectedRoute><EditProduct /></ProtectedRoute>}/>
               <Route path="/vision" element={<Vision />} />
               <Route path="/prints" element={<UnderDevelopment />} /> 
               <Route path="/digital-art" element={<UnderDevelopment />} /> 

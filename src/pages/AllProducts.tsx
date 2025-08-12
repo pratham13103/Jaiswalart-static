@@ -5,7 +5,8 @@ import productData from "../data/products.json";
 
 interface Product {
   id: number;
-  image_url: string;
+  image_url?: string;
+  images?: string[];
   name: string;
   artist: string;
   description: string;
@@ -29,7 +30,10 @@ const AllProducts: React.FC = () => {
 
   const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
   const startIdx = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const currentProducts = products.slice(startIdx, startIdx + PRODUCTS_PER_PAGE);
+  const currentProducts = products.slice(
+    startIdx,
+    startIdx + PRODUCTS_PER_PAGE
+  );
 
   const cardWidth =
     gridType === "grid4"
@@ -81,15 +85,27 @@ const AllProducts: React.FC = () => {
             className={`${cardWidth} p-5 border rounded-2xl shadow-md text-center bg-white hover:shadow-xl transition-transform hover:scale-105`}
           >
             <Link to={`/products/${product.slug}`}>
-              <img
-                src={product.image_url}
-                alt={product.name}
-                className="w-full h-72 object-contain rounded-xl mb-4"
-              />
+              <div className="relative w-full h-72 mb-4">
+                <img
+                  src={product.images?.[0] || product.image_url}
+                  alt={product.name}
+                  className={`w-full h-full object-contain rounded-lg transition-opacity duration-300 absolute top-0 left-0 ${
+                    product.images?.[1] ? "hover:opacity-0" : ""
+                  }`}
+                />
+                {product.images?.[1] && (
+                  <img
+                    src={product.images[1]}
+                    alt={`${product.name} - second`}
+                    className="w-full h-full object-contain rounded-xl transition-opacity duration-300 opacity-0 hover:opacity-100 absolute top-0 left-0"
+                  />
+                )}
+              </div>
               <h2 className="text-xl font-bold text-gray-800">
                 {product.name}
               </h2>
             </Link>
+
             <p className="text-gray-500 text-sm">{product.artist}</p>
             <p className="text-sm mt-2 text-gray-600">{product.description}</p>
             <p className="mt-2 text-lg">

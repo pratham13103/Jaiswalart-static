@@ -274,9 +274,26 @@
     "current_price": 399,
     "category": "Warli Art",
     "image_url": "/products/paule.jpeg",
-    "rating": 0,
+    "rating": 3,
     "stock": 2,
     "slug": "paule",
     "shape": "Circle"
+  },
+  {
+    "id": 25,
+    "name": "Elegant orange ceramic pot with designer stand",
+    "artist": "Pratibha Jaiswal",
+    "description": "Beautiful two red handcrafted paule with wooden stand for home decor and festivals.",
+    "original_price": 500,
+    "current_price": 399,
+    "category": "Paintings",
+    "images": [
+      "/products/orange_pot_and_stand1.jpeg",
+      "/products/orange_pot_and_stand2.jpeg"
+    ],
+    "rating": 4,
+    "stock": 2,
+    "slug": "orange_pot_and_stand",
+    "shape": "horizontal-rectangle"
   }
 ]

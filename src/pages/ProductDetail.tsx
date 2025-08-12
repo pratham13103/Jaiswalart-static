@@ -5,7 +5,8 @@ import productData from "../data/products.json";
 interface Product {
   id: number;
   slug: string;
-  image_url: string;
+  image_url?: string;
+  images?: string[];
   name: string;
   artist: string;
   description: string;
@@ -35,12 +36,11 @@ const ProductDetail: React.FC = () => {
       setProduct(matchedProduct);
 
       // Similar products
-      const similar = productData
-        .filter(
-          (item) =>
-            item.category === matchedProduct.category && item.id !== matchedProduct.id
-        )
-        .slice(0, 3);
+      const similar = productData.filter(
+        (item) =>
+          item.category === matchedProduct.category &&
+          item.id !== matchedProduct.id
+      );
       setSimilarProducts(similar);
     } catch (err: any) {
       setError(err.message);
@@ -51,7 +51,8 @@ const ProductDetail: React.FC = () => {
 
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
   if (error) return <p className="text-center text-red-500">Error: {error}</p>;
-  if (!product) return <p className="text-center text-gray-500">Product not found.</p>;
+  if (!product)
+    return <p className="text-center text-gray-500">Product not found.</p>;
 
   return (
     <div className="p-4 mt-12">
@@ -59,12 +60,25 @@ const ProductDetail: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row gap-6 h-[500px] md:col-span-2">
           {/* Image */}
-          <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center items-center">
-            <img
-              src={product.image_url}
-              alt={product.name}
-              className="h-80 object-contain rounded-lg"
-            />
+          {/* Image */}
+          <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center items-center relative">
+            {/* Main Image with hover swap */}
+            <div className="relative w-full h-[500px]">
+              <img
+                src={product.images?.[0] || product.image_url}
+                alt={product.name}
+                className={`w-full h-full object-contain rounded-lg transition-opacity duration-300 absolute top-0 left-0 ${
+                  product.images?.[1] ? "hover:opacity-0" : ""
+                }`}
+              />
+              {product.images?.[1] && (
+                <img
+                  src={product.images[1]}
+                  alt={`${product.name} - second`}
+                  className="w-full h-full object-contain rounded-lg transition-opacity duration-300 opacity-0 hover:opacity-100 absolute top-0 left-0"
+                />
+              )}
+            </div>
           </div>
 
           {/* Details */}
@@ -141,20 +155,48 @@ const ProductDetail: React.FC = () => {
       {/* Similar Products */}
       {similarProducts.length > 0 && (
         <div className="mt-12">
-          <h3 className="text-2xl font-semibold">Similar Products</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+          <h1 className="text-4xl font-semibold text-center">
+            Similar Products
+          </h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4 justify-items-center">
             {similarProducts.map((item) => (
               <div
                 key={item.id}
-                className="cursor-pointer p-2 border rounded-lg hover:shadow-md transition"
+                className="cursor-pointer border rounded-lg shadow-sm hover:shadow-lg transition p-4 flex flex-col w-80 sm:w-96"
                 onClick={() => navigate(`/products/${item.slug}`)}
               >
-                <img
-                  src={item.image_url}
-                  alt={item.name}
-                  className="w-full h-32 object-contain rounded"
-                />
-                <p className="text-center mt-2 font-medium">{item.name}</p>
+                {/* Product image with hover swap if two images */}
+                <div className="relative w-full h-56 mb-3">
+                  <img
+                    src={item.images?.[0] || item.image_url}
+                    alt={item.name}
+                    className={`w-full h-full object-contain rounded-lg transition-opacity duration-300 absolute top-0 left-0 ${
+                      item.images?.[1] ? "hover:opacity-0" : ""
+                    }`}
+                  />
+                  {item.images?.[1] && (
+                    <img
+                      src={item.images[1]}
+                      alt={`${item.name} - second`}
+                      className="w-full h-full object-contain rounded-lg transition-opacity duration-300 opacity-0 hover:opacity-100 absolute top-0 left-0"
+                    />
+                  )}
+                </div>
+
+                {/* Product info */}
+                <h4 className="text-lg font-semibold">{item.name}</h4>
+                <p className="text-gray-500 text-sm line-clamp-2">
+                  {item.description}
+                </p>
+
+                <div className="mt-2">
+                  <span className="line-through text-gray-500 text-sm">
+                    ₹{item.original_price}
+                  </span>{" "}
+                  <span className="text-red-600 font-bold text-lg">
+                    ₹{item.current_price}
+                  </span>
+                </div>
               </div>
             ))}
           </div>

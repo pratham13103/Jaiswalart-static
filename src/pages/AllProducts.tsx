@@ -28,7 +28,10 @@ const AllProducts: React.FC = () => {
 
   const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
   const startIdx = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const currentProducts = products.slice(startIdx, startIdx + PRODUCTS_PER_PAGE);
+  const currentProducts = products.slice(
+    startIdx,
+    startIdx + PRODUCTS_PER_PAGE
+  );
 
   const cardWidth =
     gridType === "grid4"
@@ -98,20 +101,41 @@ const AllProducts: React.FC = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-10 gap-2">
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrentPage(i + 1)}
-            className={`px-4 py-2 rounded-md ${
-              currentPage === i + 1
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 text-gray-700"
-            } hover:bg-blue-500 hover:text-white transition`}
-          >
-            {i + 1}
-          </button>
-        ))}
+      <div className="flex justify-center items-center gap-3 mt-10 mb-6">
+        {/* Prev Button */}
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className={`px-4 py-2 rounded-lg border border-gray-300 font-medium transition flex items-center gap-1
+      ${
+        currentPage === 1
+          ? "bg-white text-black opacity-50 cursor-not-allowed"
+          : "bg-green-500 text-white hover:bg-green-600 shadow-md"
+      }`}
+        >
+          &laquo; Previous
+        </button>
+
+        {/* Page Badge */}
+        <span className="px-3 py-1  text-gray-700">
+          Page {currentPage} of {totalPages}
+        </span>
+
+        {/* Next Button */}
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+          className={`px-4 py-2 rounded-lg border border-gray-300 font-medium transition flex items-center gap-1
+      ${
+        currentPage === totalPages
+          ? "bg-white text-black opacity-50 cursor-not-allowed"
+          : "bg-green-500 text-white hover:bg-green-600 shadow-md"
+      }`}
+        >
+          Next &raquo;
+        </button>
       </div>
     </div>
   );

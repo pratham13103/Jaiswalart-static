@@ -22,7 +22,11 @@ const AllProducts: React.FC = () => {
   const [gridType, setGridType] = useState<"grid4" | "grid9">("grid4");
 
   useEffect(() => {
-    setProducts(productData); // Load from local JSON
+    const formattedProducts: Product[] = productData.map((p) => ({
+      ...p,
+      image_url: p.image_url ?? p.images?.[0] ?? "", // always set a string
+    }));
+    setProducts(formattedProducts);
   }, []);
 
   // Dynamic products per page

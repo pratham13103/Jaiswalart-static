@@ -6,7 +6,8 @@ import productData from "../data/products.json";
 
 interface Product {
   id: number;
-  image_url: string;
+  image_url: string; // make it always a string after normalization
+  images?: string[];
   name: string;
   artist: string;
   description: string;
@@ -29,7 +30,11 @@ const ProductSearch: React.FC = () => {
     setSearchQuery(query);
 
     try {
-      setProducts(productData);
+      const formattedProducts: Product[] = productData.map((p) => ({
+        ...p,
+        image_url: p.image_url ?? p.images?.[0] ?? "", // always a string
+      }));
+      setProducts(formattedProducts);
       setLoading(false);
     } catch (err: any) {
       setError("Failed to load products.");
@@ -37,9 +42,10 @@ const ProductSearch: React.FC = () => {
     }
   }, [location]);
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.category.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (

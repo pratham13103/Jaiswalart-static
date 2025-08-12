@@ -7,7 +7,8 @@ import productData from "../../data/products.json";
 
 interface Product {
   id: number;
-  image_url: string;
+  image_url: string; // guaranteed after normalization
+  images?: string[];
   name: string;
   artist: string;
   description: string;
@@ -26,7 +27,11 @@ const Products: React.FC = () => {
   const PRODUCTS_PER_PAGE = 5;
 
   useEffect(() => {
-    setProducts(productData);
+    const formattedProducts: Product[] = productData.map((p) => ({
+      ...p,
+      image_url: p.image_url ?? p.images?.[0] ?? "", // fallback to first image or empty string
+    }));
+    setProducts(formattedProducts);
     setLoading(false);
   }, []);
 
@@ -37,7 +42,9 @@ const Products: React.FC = () => {
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev === 0 ? Math.max(products.length - PRODUCTS_PER_PAGE, 0) : prev - PRODUCTS_PER_PAGE
+      prev === 0
+        ? Math.max(products.length - PRODUCTS_PER_PAGE, 0)
+        : prev - PRODUCTS_PER_PAGE
     );
   };
 
@@ -53,7 +60,9 @@ const Products: React.FC = () => {
 
   return (
     <div className="px-4 md:px-14 py-14 bg-gradient-to-br from-[#fefefc] to-[#f2e9e4]">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Featured Artworks</h2>
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
+        Featured Artworks
+      </h2>
 
       {loading ? (
         <p className="text-center text-gray-500">Loading products...</p>
@@ -83,13 +92,21 @@ const Products: React.FC = () => {
                       alt={product.name}
                       className="w-full h-48 object-contain rounded-lg mb-3"
                     />
-                    <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      {product.name}
+                    </h3>
                   </Link>
                   <p className="text-sm text-gray-500">{product.artist}</p>
-                  <p className="text-sm mt-1 text-gray-600">{product.description}</p>
+                  <p className="text-sm mt-1 text-gray-600">
+                    {product.description}
+                  </p>
                   <p className="mt-2 text-base">
-                    <span className="line-through text-gray-400 mr-2">₹{product.original_price}</span>
-                    <span className="text-red-600 font-bold">₹{product.current_price}</span>
+                    <span className="line-through text-gray-400 mr-2">
+                      ₹{product.original_price}
+                    </span>
+                    <span className="text-red-600 font-bold">
+                      ₹{product.current_price}
+                    </span>
                   </p>
                   <button
                     onClick={() => handleOrderNow(product.slug)}
@@ -124,13 +141,21 @@ const Products: React.FC = () => {
                       alt={product.name}
                       className="w-full h-64 object-contain rounded-xl mb-4"
                     />
-                    <h3 className="text-xl font-semibold text-gray-800">{product.name}</h3>
+                    <h3 className="text-xl font-semibold text-gray-800">
+                      {product.name}
+                    </h3>
                   </Link>
                   <p className="text-gray-500 text-sm">{product.artist}</p>
-                  <p className="text-sm text-gray-600 mt-2">{product.description}</p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    {product.description}
+                  </p>
                   <p className="mt-3 text-lg">
-                    <span className="line-through text-gray-400 mr-2">₹{product.original_price}</span>
-                    <span className="text-red-600 font-bold">₹{product.current_price}</span>
+                    <span className="line-through text-gray-400 mr-2">
+                      ₹{product.original_price}
+                    </span>
+                    <span className="text-red-600 font-bold">
+                      ₹{product.current_price}
+                    </span>
                   </p>
                   <button
                     onClick={() => handleOrderNow(product.slug)}

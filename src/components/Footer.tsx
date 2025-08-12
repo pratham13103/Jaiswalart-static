@@ -5,12 +5,12 @@ import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 const Footer: React.FC = () => {
   return (
     <footer className="bg-red-600 text-white py-8 px-4 sm:px-8 w-full">
-      <div className="max-w-6xl mx-auto flex flex-row flex-nowrap justify-between gap-8 text-center sm:text-left ">
+      <div className="max-w-6xl mx-auto flex flex-wrap justify-center sm:justify-between gap-8 text-center sm:text-left">
         
         {/* Social Links */}
-        <div className="w-full sm:w-auto flex-1 min-w-[200px]">
+        <div className="flex-auto min-w-[150px]">
           <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-          <div className="flex justify-center sm:justify-start flex-wrap gap-4">
+          <div className="flex justify-center sm:justify-start gap-4">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
               <FaFacebook className="text-2xl hover:text-blue-600" />
             </a>
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Policies */}
-        <div className="w-full sm:w-auto flex-1 min-w-[200px]">
+        <div className="flex-auto min-w-[150px]">
           <h3 className="text-lg font-semibold mb-4">Policies</h3>
           <ul className="space-y-2 text-base">
             <li><Link to="/terms-and-conditions" className="hover:underline">Terms & Conditions</Link></li>
@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Services */}
-        <div className="w-full sm:w-auto flex-1 min-w-[200px]">
+        <div className="flex-auto min-w-[150px]">
           <h3 className="text-lg font-semibold mb-4">Our Services</h3>
           <ul className="space-y-2 text-base">
             <li><Link to="/custom-orders" className="hover:underline">Custom Art</Link></li>
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Company Info */}
-        <div className="w-full sm:w-auto flex-1 min-w-[200px]">
+        <div className="flex-auto min-w-[150px]">
           <h3 className="text-lg font-semibold mb-4">Company</h3>
           <ul className="space-y-2 text-base">
             <li><Link to="/about" className="hover:underline">About Us</Link></li>

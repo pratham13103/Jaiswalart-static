@@ -15,8 +15,6 @@ interface Product {
   slug: string;
 }
 
-const PRODUCTS_PER_PAGE = 8;
-
 const AllProducts: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,12 +24,12 @@ const AllProducts: React.FC = () => {
     setProducts(productData); // Load from local JSON
   }, []);
 
+  // Dynamic products per page
+  const PRODUCTS_PER_PAGE = gridType === "grid4" ? 15 : 16;
+
   const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
   const startIdx = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const currentProducts = products.slice(
-    startIdx,
-    startIdx + PRODUCTS_PER_PAGE
-  );
+  const currentProducts = products.slice(startIdx, startIdx + PRODUCTS_PER_PAGE);
 
   const cardWidth =
     gridType === "grid4"
@@ -45,7 +43,10 @@ const AllProducts: React.FC = () => {
         <h1 className="text-4xl font-bold text-gray-800">All Products</h1>
         <div className="flex gap-4 justify-center mt-4">
           <button
-            onClick={() => setGridType("grid4")}
+            onClick={() => {
+              setGridType("grid4");
+              setCurrentPage(1);
+            }}
             className={`p-3 rounded-lg ${
               gridType === "grid4"
                 ? "bg-gray-800 text-white"
@@ -53,10 +54,13 @@ const AllProducts: React.FC = () => {
             }`}
             title="4 Grid View"
           >
-            <LayoutGrid size={28} />
+            <Grid size={28} />
           </button>
           <button
-            onClick={() => setGridType("grid9")}
+            onClick={() => {
+              setGridType("grid9");
+              setCurrentPage(1);
+            }}
             className={`p-3 rounded-lg ${
               gridType === "grid9"
                 ? "bg-gray-800 text-white"
@@ -64,7 +68,7 @@ const AllProducts: React.FC = () => {
             }`}
             title="3 Grid View"
           >
-            <Grid size={28} />
+            <LayoutGrid size={28} />
           </button>
         </div>
       </div>
@@ -117,7 +121,7 @@ const AllProducts: React.FC = () => {
         </button>
 
         {/* Page Badge */}
-        <span className="px-3 py-1  text-gray-700">
+        <span className="px-3 py-1 text-gray-700">
           Page {currentPage} of {totalPages}
         </span>
 

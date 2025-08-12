@@ -17,7 +17,7 @@ const AddProduct: React.FC = () => {
 
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const categories = ["Mandala Art", "Warli Art", "Sketches", "Paintings"];
+  const categories = ["Mandala Art", "Warli Art", "Sketches", "Paintings","Paule"];
 
   const handleChange = (
     e: React.ChangeEvent<

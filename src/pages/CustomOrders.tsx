@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
 
-const categories = ["Mandala Art", "Warli Art", "Sketch", "Painting", "Other"];
+const categories = ["Mandala Art", "Warli Art", "Sketch", "Painting", "Paule", "Other"];
 
 const CustomOrders: React.FC = () => {
   const [name, setName] = useState("");

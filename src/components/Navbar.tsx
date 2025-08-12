@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
   return (
     <div className="fixed top-0 left-0 w-full z-50">
       {/* Marquee */}
-      <div className="bg-red-600 text-white py-2 text-sm md:text-lg font-semibold overflow-hidden">
+      <div className="bg-red-600 text-white py-1/2 text-sm md:text-lg font-semibold overflow-hidden">
         <div className="flex whitespace-nowrap animate-scroll">
           <span className="mx-8 md:mx-16">
             🎨 Get 20% OFF on your first order!
@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
 
       {/* Main Navbar */}
       <nav className="w-full bg-white shadow-md/10 backdrop-blur-md shadow-md z-50">
-        <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 md:px-8 py-4 h-20">
+        <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 md:px-8 py-4 h-14">
           {/* Title */}
           <Link
             to="/"

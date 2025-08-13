@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import productData from "../data/products.json";
+import productsA from "../data/products.json";
+import productsB from "../data/products1.json";
 
 interface Product {
   id: number;
@@ -18,6 +19,9 @@ interface Product {
   specifications?: string[];
 }
 
+// Merge both product lists
+const allProducts: Product[] = [...productsA, ...productsB];
+
 const ProductDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -31,12 +35,12 @@ const ProductDetail: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const matchedProduct = productData.find((item) => item.slug === slug);
+      const matchedProduct = allProducts.find((item) => item.slug === slug);
       if (!matchedProduct) throw new Error("Product not found");
       setProduct(matchedProduct);
 
-      // Similar products
-      const similar = productData.filter(
+      // Similar products from both sources
+      const similar = allProducts.filter(
         (item) =>
           item.category === matchedProduct.category &&
           item.id !== matchedProduct.id
@@ -59,10 +63,8 @@ const ProductDetail: React.FC = () => {
       {/* Product Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row gap-6 h-[500px] md:col-span-2">
-          {/* Image */}
-          {/* Image */}
+          {/* Product Image */}
           <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center items-center relative">
-            {/* Main Image with hover swap */}
             <div className="relative w-full h-[500px]">
               <img
                 src={product.images?.[0] || product.image_url}
@@ -81,7 +83,7 @@ const ProductDetail: React.FC = () => {
             </div>
           </div>
 
-          {/* Details */}
+          {/* Product Details */}
           <div className="flex flex-col justify-between w-full overflow-y-auto">
             <div>
               <h2 className="text-3xl font-bold">{product.name}</h2>
@@ -121,7 +123,7 @@ const ProductDetail: React.FC = () => {
               )}
             </div>
 
-            {/* Quantity + Order Button */}
+            {/* Quantity & Order Button */}
             <div className="mt-6">
               <div className="flex items-center gap-4 mb-4">
                 <button
@@ -165,7 +167,7 @@ const ProductDetail: React.FC = () => {
                 className="cursor-pointer border rounded-lg shadow-sm hover:shadow-lg transition p-4 flex flex-col w-80 sm:w-96"
                 onClick={() => navigate(`/products/${item.slug}`)}
               >
-                {/* Product image with hover swap if two images */}
+                {/* Product image with hover swap */}
                 <div className="relative w-full h-56 mb-3">
                   <img
                     src={item.images?.[0] || item.image_url}
@@ -183,7 +185,7 @@ const ProductDetail: React.FC = () => {
                   )}
                 </div>
 
-                {/* Product info */}
+                {/* Product Info */}
                 <h4 className="text-lg font-semibold">{item.name}</h4>
                 <p className="text-gray-500 text-sm line-clamp-2">
                   {item.description}

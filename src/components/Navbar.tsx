@@ -6,8 +6,7 @@ const categories = [
   "Mandala",
   "Warli",
   "Paintings",
-  "Abstract",
-  "Modern",
+  "Paule",
   "Landscape",
 ];
 

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { LayoutGrid, Grid } from "lucide-react";
-import productData from "../data/products.json";
+import productsData from "../data/products.json";
+import productsData1 from "../data/products1.json";
 
 interface Product {
   id: number;
   image_url?: string;
-  images?: string[];
   name: string;
-  artist: string;
-  description: string;
+  artist?: string;
+  description?: string;
   original_price: number;
   current_price: number;
   category: string;
@@ -22,22 +22,18 @@ const AllProducts: React.FC = () => {
   const [gridType, setGridType] = useState<"grid4" | "grid9">("grid4");
 
   useEffect(() => {
-    const formattedProducts: Product[] = productData.map((p) => ({
+    // Combine both data sources into one array
+    const formattedProducts: Product[] = [...productsData, ...productsData1].map((p) => ({
       ...p,
-      image_url: p.image_url ?? p.images?.[0] ?? "", // always set a string
+      image_url: p.image_url ?? "",
     }));
     setProducts(formattedProducts);
   }, []);
 
-  // Dynamic products per page
   const PRODUCTS_PER_PAGE = gridType === "grid4" ? 15 : 16;
-
   const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
   const startIdx = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const currentProducts = products.slice(
-    startIdx,
-    startIdx + PRODUCTS_PER_PAGE
-  );
+  const currentProducts = products.slice(startIdx, startIdx + PRODUCTS_PER_PAGE);
 
   const cardWidth =
     gridType === "grid4"
@@ -91,27 +87,24 @@ const AllProducts: React.FC = () => {
             <Link to={`/products/${product.slug}`}>
               <div className="relative w-full h-72 mb-4">
                 <img
-                  src={product.images?.[0] || product.image_url}
+                  src={product.image_url}
                   alt={product.name}
-                  className={`w-full h-full object-contain rounded-lg transition-opacity duration-300 absolute top-0 left-0 ${
-                    product.images?.[1] ? "hover:opacity-0" : ""
-                  }`}
+                  className="w-full h-full object-contain rounded-lg"
                 />
-                {product.images?.[1] && (
-                  <img
-                    src={product.images[1]}
-                    alt={`${product.name} - second`}
-                    className="w-full h-full object-contain rounded-xl transition-opacity duration-300 opacity-0 hover:opacity-100 absolute top-0 left-0"
-                  />
-                )}
               </div>
               <h2 className="text-xl font-bold text-gray-800">
                 {product.name}
               </h2>
             </Link>
 
-            <p className="text-gray-500 text-sm">{product.artist}</p>
-            <p className="text-sm mt-2 text-gray-600">{product.description}</p>
+            {product.artist && (
+              <p className="text-gray-500 text-sm">{product.artist}</p>
+            )}
+            {product.description && (
+              <p className="text-sm mt-2 text-gray-600">
+                {product.description}
+              </p>
+            )}
             <p className="mt-2 text-lg">
               <span className="line-through text-gray-400 text-sm">
                 ₹{product.original_price}

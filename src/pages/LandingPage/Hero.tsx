@@ -3,6 +3,7 @@ import ArtistSpotlight from "./ArtistSpotlight";
 import Features from "./Features";
 import Products from "./Products";
 import Testimonials from "./Testimonials";
+import ProductShowcase from "./ProductShowcase";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -70,14 +71,17 @@ const Hero: React.FC = () => {
         </div>
       </section>
 
-      {/* Products Section */}
-      <Products />
+      {/* ProductShowcase Section */}
+      <ProductShowcase />
 
-      {/* Features Section */}
-      <Features />
+      {/* Products Section */}
+      <Products />      
 
       {/* ArtistSpotlight Section */}
       <ArtistSpotlight />
+
+      {/* Features Section */}
+      <Features />
 
       {/* Testimonials Section */}
       <Testimonials />

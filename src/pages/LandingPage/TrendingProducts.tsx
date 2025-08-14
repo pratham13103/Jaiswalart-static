@@ -72,9 +72,9 @@ const productMap: { [key: number]: Product } = {
     rating: 0,
     stock: 10,
     slug: "black-n-white-mandalas-art",
-    shape: "Square"
+    shape: "Square",
   },
-  21:{
+  21: {
     id: 21,
     name: "Set of Two Green Black Mandala Mirror Art",
     artist: "Pratibha Jaiswal",
@@ -86,7 +86,7 @@ const productMap: { [key: number]: Product } = {
     rating: 0,
     stock: 10,
     slug: "set-of-two-green-black-mandala-mirror-art",
-    shape: "Square"
+    shape: "Square",
   },
 };
 
@@ -100,21 +100,22 @@ const videoSources = [
 
 const TrendingProducts: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
   const handlePrev = () => {
     if (selectedIndex !== null) {
-      setSelectedIndex(
-        selectedIndex === 0 ? videoSources.length - 1 : selectedIndex - 1
-      );
+      setSelectedIndex(selectedIndex === 0 ? videoSources.length - 1 : selectedIndex - 1);
+    } else {
+      setCurrentIndex(currentIndex === 0 ? videoSources.length - 1 : currentIndex - 1);
     }
   };
 
   const handleNext = () => {
     if (selectedIndex !== null) {
-      setSelectedIndex(
-        selectedIndex === videoSources.length - 1 ? 0 : selectedIndex + 1
-      );
+      setSelectedIndex(selectedIndex === videoSources.length - 1 ? 0 : selectedIndex + 1);
+    } else {
+      setCurrentIndex(currentIndex === videoSources.length - 1 ? 0 : currentIndex + 1);
     }
   };
 
@@ -126,36 +127,61 @@ const TrendingProducts: React.FC = () => {
 
   return (
     <div className="mt-24 px-4">
-      <h2 className="text-3xl font-bold text-center mb-10">
-        Trending Products
-      </h2>
+      <h2 className="text-3xl font-bold text-center mb-10">Trending Products</h2>
 
-      {/* Horizontal Reel Display */}
-      <div className="flex justify-center">
-        <div className="flex gap-6 overflow-x-auto pb-6">
-          {videoSources.map((item, index) => (
-            <div
-              key={item.video}
-              className="relative w-[350px] h-[600px] rounded-2xl shadow-xl flex-shrink-0 group"
+      {/* Desktop layout */}
+      <div className="hidden md:flex justify-center gap-6">
+        {videoSources.map((item, index) => (
+          <div
+            key={item.video}
+            className="relative w-[280px] h-[480px] rounded-2xl shadow-xl flex-shrink-0 group"
+          >
+            <video
+              src={`/videos/${item.video}.mp4`}
+              className="w-full h-full rounded-2xl object-cover cursor-pointer"
+              autoPlay
+              loop
+              muted
+              playsInline
+              onClick={() => setSelectedIndex(index)}
+            />
+            <button
+              onClick={() => setSelectedIndex(index)}
+              className="absolute bottom-4 left-1/2 transform -translate-x-1/2 px-6 py-3 text-lg font-semibold bg-red-600 hover:bg-orange-500 text-white rounded-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-lg"
             >
-              <video
-                src={`/videos/${item.video}.mp4`}
-                className="w-full h-full rounded-2xl object-cover cursor-pointer"
-                autoPlay
-                loop
-                muted
-                playsInline
-                onClick={() => setSelectedIndex(index)}
-              />
-              <button
-                onClick={() => setSelectedIndex(index)}
-                className="absolute bottom-4 left-1/2 transform -translate-x-1/2 px-5 py-2 bg-orange-600 text-white font-medium rounded-md shadow hover:bg-orange-500 transition-all flex items-center gap-2"
-              >
-                View Details <MoveRight size={18} />
-              </button>
-            </div>
-          ))}
+              View Details <MoveRight size={18} />
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Mobile layout */}
+      <div className="relative md:hidden flex justify-center items-center">
+        <button
+          onClick={handlePrev}
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-700 text-white rounded-full p-2 opacity-80 hover:opacity-100"
+        >
+          <ChevronLeft size={24} />
+        </button>
+
+        <div className="w-[280px] h-[480px] rounded-2xl shadow-xl overflow-hidden">
+          <video
+            src={`/videos/${videoSources[currentIndex].video}.mp4`}
+            className="w-full h-full object-cover cursor-pointer"
+            autoPlay
+            loop
+            muted
+            playsInline
+            onClick={() => setSelectedIndex(currentIndex)}
+          />
         </div>
+
+        <button
+          onClick={handleNext}
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-700 text-white rounded-full p-2 opacity-80 hover:opacity-100"
+        >
+          <ChevronRight size={24} />
+        </button>
       </div>
 
       {/* Explore All Products */}
@@ -210,7 +236,7 @@ const TrendingProducts: React.FC = () => {
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <video
                   src={`/videos/${videoSources[selectedIndex].video}.mp4`}
-                  className="w-full max-w-[90vw] md:max-w-[460px] aspect-[9/16] rounded-xl border-4 border-white"
+                  className="w-full max-w-[90vw] md:max-w-[380px] aspect-[9/16] rounded-xl border-4 border-white"
                   autoPlay
                   loop
                   controls

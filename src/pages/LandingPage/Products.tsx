@@ -77,9 +77,25 @@ const Products: React.FC = () => {
             </button>
           </div>
 
-          {/* Mobile - Horizontal Scroll */}
+          {/* Mobile - Horizontal Scroll with Arrows */}
           <div className="relative block lg:hidden">
-            <div className="flex overflow-x-auto gap-6 no-scrollbar px-2">
+            {/* Left Arrow */}
+            <button
+              onClick={() => {
+                const container = document.getElementById("mobile-scroll");
+                if (container)
+                  container.scrollBy({ left: -300, behavior: "smooth" });
+              }}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-md border border-gray-300 p-3 rounded-full shadow hover:bg-gray-100"
+            >
+              <ChevronLeft size={22} />
+            </button>
+
+            {/* Scrollable products */}
+            <div
+              id="mobile-scroll"
+              className="flex overflow-x-auto gap-6 no-scrollbar px-2 scroll-smooth"
+            >
               {products.map((product) => (
                 <motion.div
                   key={product.id}
@@ -117,6 +133,18 @@ const Products: React.FC = () => {
                 </motion.div>
               ))}
             </div>
+
+            {/* Right Arrow */}
+            <button
+              onClick={() => {
+                const container = document.getElementById("mobile-scroll");
+                if (container)
+                  container.scrollBy({ left: 300, behavior: "smooth" });
+              }}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-md border border-gray-300 p-3 rounded-full shadow hover:bg-gray-100"
+            >
+              <ChevronRight size={22} />
+            </button>
           </div>
 
           {/* Desktop - Grid View with Navigation */}
@@ -159,7 +187,7 @@ const Products: React.FC = () => {
                   </p>
                   <button
                     onClick={() => handleOrderNow(product.slug)}
-                    className="mt-4 w-full py-2 bg-green-700 text-white rounded-xl text-sm font-medium hover:bg-green-800 transition-all"
+                    className="mt-4 w-full py-2 bg-rose-500 text-white rounded-xl text-sm font-medium hover:bg-rose-600 transition-all"
                   >
                     Order Now (COD)
                   </button>

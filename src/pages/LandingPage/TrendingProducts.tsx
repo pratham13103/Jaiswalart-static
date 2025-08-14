@@ -147,7 +147,7 @@ const TrendingProducts: React.FC = () => {
             />
             <button
               onClick={() => setSelectedIndex(index)}
-              className="absolute bottom-4 left-1/2 transform -translate-x-1/2 px-6 py-3 text-lg font-semibold bg-red-600 hover:bg-orange-500 text-white rounded-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-lg"
+              className="absolute bottom-4 left-1/2 transform -translate-x-1/2 px-5 py-2.5 text-base font-semibold bg-red-600 hover:bg-orange-500 text-white rounded-full transition-all flex items-center justify-center gap-2 shadow-lg whitespace-nowrap"
             >
               View Details <MoveRight size={18} />
             </button>

@@ -47,7 +47,7 @@ const Testimonials: React.FC = () => {
   return (
     <section className="py-16 bg-gray-100 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">
+        <h2 className="text-5xl font-bold text-center text-gray-800 mb-10">
           What Our Customers Say
         </h2>
 

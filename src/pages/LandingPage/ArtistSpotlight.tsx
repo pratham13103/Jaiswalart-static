@@ -29,7 +29,7 @@ const ArtistSpotlight: React.FC = () => {
       <ProductOfTheWeek />
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">
             🎭 Meet Our Artists
           </h2>
           <p className="text-lg text-gray-700 mb-12">

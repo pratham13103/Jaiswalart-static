@@ -38,7 +38,7 @@ const Features: React.FC = () => {
   return (
     <section className="py-16 bg-gray-100">
       <div className="container mx-auto px-6 text-center">
-        <h2 className="text-4xl font-bold text-gray-900 mb-6">Why Choose Jaiswal Arts?</h2>
+        <h2 className="text-5xl font-bold text-gray-900 mb-6">Why Choose Jaiswal Arts?</h2>
         <p className="text-lg text-gray-700 mb-12">Experience the best in fine arts with top-tier features.</p>
 
         {/* Features Grid */}

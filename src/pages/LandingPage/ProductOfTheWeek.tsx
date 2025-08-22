@@ -14,7 +14,7 @@ const ProductOfTheWeek: React.FC = () => {
   return (
     <section className="py-16 bg-red-50">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4 text-center">
+        <h2 className="text-5xl font-bold text-gray-900 mb-4 text-center">
           🌟 Product of the Week
         </h2>
         <p className="text-lg text-gray-700 mb-12 text-center">

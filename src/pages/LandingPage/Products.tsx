@@ -60,7 +60,7 @@ const Products: React.FC = () => {
 
   return (
     <div className="px-4 md:px-14 py-14 bg-gradient-to-br from-[#fefefc] to-[#f2e9e4]">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
+      <h2 className="text-5xl font-bold text-center text-gray-800 mb-10">
         Featured Artworks
       </h2>
 
@@ -77,73 +77,72 @@ const Products: React.FC = () => {
             </button>
           </div>
 
-          {/* Mobile - Horizontal Scroll with Arrows */}
+          {/* Mobile - 5 Products Horizontal Row with Arrow Navigation */}
           <div className="relative block lg:hidden">
             {/* Left Arrow */}
             <button
-              onClick={() => {
-                const container = document.getElementById("mobile-scroll");
-                if (container)
-                  container.scrollBy({ left: -300, behavior: "smooth" });
-              }}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-md border border-gray-300 p-3 rounded-full shadow hover:bg-gray-100"
+              onClick={handlePrev}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-md border border-gray-300 p-2 rounded-full shadow hover:bg-gray-100"
             >
-              <ChevronLeft size={22} />
+              <ChevronLeft size={18} />
             </button>
 
-            {/* Scrollable products */}
-            <div
-              id="mobile-scroll"
-              className="flex overflow-x-auto gap-6 no-scrollbar px-2 scroll-smooth"
-            >
-              {products.map((product) => (
-                <motion.div
-                  key={product.id}
-                  className="min-w-[80%] p-4 rounded-2xl bg-white/60 backdrop-blur-md border border-gray-200 shadow-md flex-shrink-0"
-                  whileHover={{ scale: 1.03 }}
-                >
-                  <Link to={`/products/${product.slug}`}>
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      className="w-full h-48 object-contain rounded-lg mb-3"
-                    />
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      {product.name}
-                    </h3>
-                  </Link>
-                  <p className="text-sm text-gray-500">{product.artist}</p>
-                  <p className="text-sm mt-1 text-gray-600">
-                    {product.description}
-                  </p>
-                  <p className="mt-2 text-base">
-                    <span className="line-through text-gray-400 mr-2">
-                      ₹{product.original_price}
-                    </span>
-                    <span className="text-red-600 font-bold">
-                      ₹{product.current_price}
-                    </span>
-                  </p>
-                  <button
-                    onClick={() => handleOrderNow(product.slug)}
-                    className="mt-3 w-full py-2 bg-green-700 text-white rounded-lg text-sm hover:bg-green-800 transition"
+            {/* Products Horizontal Row */}
+            <div className="mx-8 overflow-hidden">
+              <div className="grid grid-cols-5 gap-3">
+                {visibleProducts.map((product) => (
+                  <motion.div
+                    key={product.id}
+                    className="p-3 rounded-xl bg-white/60 backdrop-blur-md border border-gray-200 shadow-md min-w-0"
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, scaleX: 0 }} // start hidden & squished
+                    whileInView={{ opacity: 1, scaleX: 1 }} // animate when in view
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    viewport={{ once: true, amount: 0.3 }} // trigger when 30% visible
                   >
-                    Order Now (COD)
-                  </button>
-                </motion.div>
-              ))}
+                    <Link to={`/products/${product.slug}`}>
+                      <img
+                        src={product.image_url}
+                        alt={product.name}
+                        className="w-full h-24 object-contain rounded-lg mb-2"
+                      />
+                      <h3 className="text-sm font-semibold text-gray-800 line-clamp-1">
+                        {product.name}
+                      </h3>
+                    </Link>
+                    <p className="text-xs text-gray-500 line-clamp-1">
+                      {product.artist}
+                    </p>
+                    <p className="text-xs mt-1 text-gray-600 line-clamp-1">
+                      {product.description}
+                    </p>
+                    <div className="mt-2 flex flex-col gap-1">
+                      <p className="text-xs">
+                        <span className="line-through text-gray-400 mr-1">
+                          ₹{product.original_price}
+                        </span>
+                        <span className="text-red-600 font-bold">
+                          ₹{product.current_price}
+                        </span>
+                      </p>
+                      <button
+                        onClick={() => handleOrderNow(product.slug)}
+                        className="w-full py-1.5 bg-green-700 text-white rounded-lg text-xs hover:bg-green-800 transition font-medium"
+                      >
+                        Order Now
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
             {/* Right Arrow */}
             <button
-              onClick={() => {
-                const container = document.getElementById("mobile-scroll");
-                if (container)
-                  container.scrollBy({ left: 300, behavior: "smooth" });
-              }}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-md border border-gray-300 p-3 rounded-full shadow hover:bg-gray-100"
+              onClick={handleNext}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-md border border-gray-300 p-2 rounded-full shadow hover:bg-gray-100"
             >
-              <ChevronRight size={22} />
+              <ChevronRight size={18} />
             </button>
           </div>
 
@@ -159,9 +158,11 @@ const Products: React.FC = () => {
             <div className="grid grid-cols-5 gap-8 mx-12">
               {visibleProducts.map((product) => (
                 <motion.div
-                  key={product.id}
-                  className="p-5 rounded-2xl bg-white/60 border border-gray-200 shadow-md hover:shadow-lg backdrop-blur-md transition-all"
-                  whileHover={{ scale: 1.05 }}
+                  key={`card-${product.id}`} // stable key, not tied to array slice index
+                  initial={{ opacity: 0, scaleX: 0 }}
+                  whileInView={{ opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 1.0, ease: "easeOut" }}
+                  viewport={{ once: true, amount: 0.3 }}
                 >
                   <Link to={`/products/${product.slug}`}>
                     <img

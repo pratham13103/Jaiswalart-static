@@ -127,7 +127,7 @@ const TrendingProducts: React.FC = () => {
 
   return (
     <div className="mt-24 px-4">
-      <h2 className="text-3xl font-bold text-center mb-10">Trending Products</h2>
+      <h2 className="text-5xl font-bold text-center mb-10">Trending Products</h2>
 
       {/* Desktop layout */}
       <div className="hidden md:flex justify-center gap-6">

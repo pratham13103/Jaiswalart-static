@@ -3,10 +3,11 @@ import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import productData from "../data/products.json";
+import productData1 from "../data/products1.json"; // ✅ import second JSON
 
 interface Product {
   id: number;
-  image_url: string; // make it always a string after normalization
+  image_url: string; // normalized to string
   images?: string[];
   name: string;
   artist: string;
@@ -30,10 +31,15 @@ const ProductSearch: React.FC = () => {
     setSearchQuery(query);
 
     try {
-      const formattedProducts: Product[] = productData.map((p) => ({
+      // ✅ merge both JSON arrays
+      const combinedData = [...productData, ...productData1];
+
+      const formattedProducts: Product[] = combinedData.map((p, index) => ({
         ...p,
-        image_url: p.image_url ?? p.images?.[0] ?? "", // always a string
+        id: p.id ?? index + 1, // ensure id exists
+        image_url: p.image_url ?? p.images?.[0] ?? "", // normalize image_url
       }));
+
       setProducts(formattedProducts);
       setLoading(false);
     } catch (err: any) {

@@ -110,5 +110,19 @@
     "stock": 5,
     "slug": "mandala-radiance",
     "shape": "Oval"
+  },
+  {
+    "id": 9,
+    "name": "Hotel Kailash",
+    "artist": "Pratibha Jaiswal",
+    "description": "Handcrafted Mandala Art  Perfect for hotels, cafés, and elegant home décor. Each piece is made with love and fine detailing",
+    "original_price": 2000,
+    "current_price": 1799,
+    "category": "Mandala",
+    "image_url": "/products/HotelKailash.jpeg",
+    "rating": 5,
+    "stock": 5,
+    "slug": "hotel kailash customized mandala art",
+    "shape": "Circle"
   }
 ]

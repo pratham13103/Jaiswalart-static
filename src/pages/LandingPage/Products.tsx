@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import TrendingProducts from "./TrendingProducts";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import productData from "../../data/products.json";
+import productData1 from "../../data/products1.json"; // ✅ import second dataset
 
 interface Product {
   id: number;
@@ -27,10 +28,15 @@ const Products: React.FC = () => {
   const PRODUCTS_PER_PAGE = 5;
 
   useEffect(() => {
-    const formattedProducts: Product[] = productData.map((p) => ({
+    // ✅ merge both product lists
+    const combinedData = [...productData, ...productData1];
+
+    const formattedProducts: Product[] = combinedData.map((p, index) => ({
       ...p,
-      image_url: p.image_url ?? p.images?.[0] ?? "", // fallback to first image or empty string
+      id: p.id ?? index + 1, // ensure unique id
+      image_url: p.image_url ?? p.images?.[0] ?? "", // fallback to first image
     }));
+
     setProducts(formattedProducts);
     setLoading(false);
   }, []);
@@ -95,10 +101,10 @@ const Products: React.FC = () => {
                     key={product.id}
                     className="p-3 rounded-xl bg-white/60 backdrop-blur-md border border-gray-200 shadow-md min-w-0"
                     whileHover={{ scale: 1.02 }}
-                    initial={{ opacity: 0, scaleX: 0 }} // start hidden & squished
-                    whileInView={{ opacity: 1, scaleX: 1 }} // animate when in view
+                    initial={{ opacity: 0, scaleX: 0 }}
+                    whileInView={{ opacity: 1, scaleX: 1 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    viewport={{ once: true, amount: 0.3 }} // trigger when 30% visible
+                    viewport={{ once: true, amount: 0.3 }}
                   >
                     <Link to={`/products/${product.slug}`}>
                       <img
@@ -158,7 +164,7 @@ const Products: React.FC = () => {
             <div className="grid grid-cols-5 gap-8 mx-12">
               {visibleProducts.map((product) => (
                 <motion.div
-                  key={`card-${product.id}`} // stable key, not tied to array slice index
+                  key={`card-${product.id}`}
                   initial={{ opacity: 0, scaleX: 0 }}
                   whileInView={{ opacity: 1, scaleX: 1 }}
                   transition={{ duration: 1.0, ease: "easeOut" }}

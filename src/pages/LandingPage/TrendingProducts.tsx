@@ -78,7 +78,8 @@ const productMap: { [key: number]: Product } = {
     id: 21,
     name: "Set of Two Green Black Mandala Mirror Art",
     artist: "Pratibha Jaiswal",
-    description: "Set of Two Green Black Mandala Mirror Art with White Border and Black Frame",
+    description:
+      "Set of Two Green Black Mandala Mirror Art with White Border and Black Frame",
     original_price: 2500,
     current_price: 2400,
     category: "Mandala Art",
@@ -105,17 +106,25 @@ const TrendingProducts: React.FC = () => {
 
   const handlePrev = () => {
     if (selectedIndex !== null) {
-      setSelectedIndex(selectedIndex === 0 ? videoSources.length - 1 : selectedIndex - 1);
+      setSelectedIndex(
+        selectedIndex === 0 ? videoSources.length - 1 : selectedIndex - 1
+      );
     } else {
-      setCurrentIndex(currentIndex === 0 ? videoSources.length - 1 : currentIndex - 1);
+      setCurrentIndex(
+        currentIndex === 0 ? videoSources.length - 1 : currentIndex - 1
+      );
     }
   };
 
   const handleNext = () => {
     if (selectedIndex !== null) {
-      setSelectedIndex(selectedIndex === videoSources.length - 1 ? 0 : selectedIndex + 1);
+      setSelectedIndex(
+        selectedIndex === videoSources.length - 1 ? 0 : selectedIndex + 1
+      );
     } else {
-      setCurrentIndex(currentIndex === videoSources.length - 1 ? 0 : currentIndex + 1);
+      setCurrentIndex(
+        currentIndex === videoSources.length - 1 ? 0 : currentIndex + 1
+      );
     }
   };
 
@@ -127,7 +136,9 @@ const TrendingProducts: React.FC = () => {
 
   return (
     <div className="mt-24 px-4">
-      <h2 className="text-5xl font-bold text-center mb-10">Trending Products</h2>
+      <h2 className="text-5xl font-bold text-center mb-10">
+        Trending Products
+      </h2>
 
       {/* Desktop layout */}
       <div className="hidden md:flex justify-center gap-6">
@@ -196,43 +207,29 @@ const TrendingProducts: React.FC = () => {
 
       {/* Overlay Viewer */}
       {selectedIndex !== null && (
-        <div className="fixed inset-0 z-50 bg-[#2a2a2a] flex items-center justify-center p-4 overflow-y-auto">
-          <div className="absolute top-6 right-6 z-[9999]">
-            <button
-              onClick={() => setSelectedIndex(null)}
-              className="text-white hover:text-gray-300 z-[9999]"
-              style={{ pointerEvents: "auto" }}
-            >
-              <X size={32} />
-            </button>
-          </div>
+        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="relative flex flex-col items-center w-full max-w-[1000px]">
+            {/* Close Button */}
+            <div className="absolute top-4 right-4">
+              <button
+                onClick={() => setSelectedIndex(null)}
+                className="text-white hover:text-gray-300"
+              >
+                <X size={32} />
+              </button>
+            </div>
 
-          <button
-            onClick={handlePrev}
-            className="absolute left-6 bg-white text-black rounded-full p-3 hover:bg-gray-200 z-20"
-          >
-            <ChevronLeft size={28} />
-          </button>
+            {/* Videos + Order Button */}
+            <div className="flex items-center gap-6">
+              {/* Prev Button */}
+              <button
+                onClick={handlePrev}
+                className="bg-white text-black rounded-full p-3 hover:bg-gray-200"
+              >
+                <ChevronLeft size={28} />
+              </button>
 
-          <button
-            onClick={handleNext}
-            className="absolute right-6 bg-white text-black rounded-full p-3 hover:bg-gray-200 z-20"
-          >
-            <ChevronRight size={28} />
-          </button>
-
-          <div className="flex flex-col items-center z-10 w-full">
-            <div className="flex flex-wrap justify-center items-center gap-4 w-full">
-              {[getIndex(-2), getIndex(-1)].map((idx) => (
-                <video
-                  key={`left-${idx}`}
-                  src={`/videos/${videoSources[idx].video}.mp4`}
-                  className="w-24 md:w-[300px] aspect-[9/16] rounded-xl blur-2xl opacity-25 pointer-events-none object-cover"
-                  muted
-                  playsInline
-                />
-              ))}
-
+              {/* Center Video */}
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <video
                   src={`/videos/${videoSources[selectedIndex].video}.mp4`}
@@ -258,15 +255,13 @@ const TrendingProducts: React.FC = () => {
                 </button>
               </div>
 
-              {[getIndex(1), getIndex(2)].map((idx) => (
-                <video
-                  key={`right-${idx}`}
-                  src={`/videos/${videoSources[idx].video}.mp4`}
-                  className="w-24 md:w-[300px] aspect-[9/16] rounded-xl blur-2xl opacity-25 pointer-events-none object-cover"
-                  muted
-                  playsInline
-                />
-              ))}
+              {/* Next Button */}
+              <button
+                onClick={handleNext}
+                className="bg-white text-black rounded-full p-3 hover:bg-gray-200"
+              >
+                <ChevronRight size={28} />
+              </button>
             </div>
           </div>
         </div>

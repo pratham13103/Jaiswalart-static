@@ -128,12 +128,6 @@ const TrendingProducts: React.FC = () => {
     }
   };
 
-  const getIndex = (offset: number) => {
-    if (selectedIndex === null) return 0;
-    const length = videoSources.length;
-    return (selectedIndex + offset + length) % length;
-  };
-
   return (
     <div className="mt-24 px-4">
       <h2 className="text-5xl font-bold text-center mb-10">

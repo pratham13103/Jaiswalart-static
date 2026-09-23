@@ -161,43 +161,64 @@ const Products: React.FC = () => {
               <ChevronLeft size={24} />
             </button>
 
-            <div className="grid grid-cols-5 gap-8 mx-12">
+            <div className="grid grid-cols-5 gap-6 mx-12 items-stretch">
               {visibleProducts.map((product) => (
                 <motion.div
                   key={`card-${product.id}`}
                   initial={{ opacity: 0, scaleX: 0 }}
                   whileInView={{ opacity: 1, scaleX: 1 }}
-                  transition={{ duration: 1.0, ease: "easeOut" }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
                   viewport={{ once: true, amount: 0.3 }}
+                  className="h-[520px] min-w-0"
                 >
-                  <Link to={`/products/${product.slug}`}>
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      className="w-full h-64 object-contain rounded-xl mb-4"
-                    />
-                    <h3 className="text-xl font-semibold text-gray-800">
-                      {product.name}
-                    </h3>
-                  </Link>
-                  <p className="text-gray-500 text-sm">{product.artist}</p>
-                  <p className="text-sm text-gray-600 mt-2">
-                    {product.description}
-                  </p>
-                  <p className="mt-3 text-lg">
-                    <span className="line-through text-gray-400 mr-2">
-                      ₹{product.original_price}
-                    </span>
-                    <span className="text-red-600 font-bold">
-                      ₹{product.current_price}
-                    </span>
-                  </p>
-                  <button
-                    onClick={() => handleOrderNow(product.slug)}
-                    className="mt-4 w-full py-2 bg-rose-500 text-white rounded-xl text-sm font-medium hover:bg-rose-600 transition-all"
-                  >
-                    Order Now (COD)
-                  </button>
+                  <div className="h-full flex flex-col rounded-xl border border-gray-200 bg-white/70 shadow-sm overflow-hidden p-3">
+
+                    {/* Fixed image area */}
+                    <Link
+                      to={`/products/${product.slug}`}
+                      className="h-64 w-full shrink-0 overflow-hidden rounded-lg bg-white"
+                    >
+                      <img
+                        src={product.image_url}
+                        alt={product.name}
+                        className="h-full w-full object-contain"
+                      />
+                    </Link>
+
+                    {/* Product information */}
+                    <div className="flex flex-col flex-1 min-h-0 pt-3">
+                      <Link to={`/products/${product.slug}`}>
+                        <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">
+                          {product.name}
+                        </h3>
+                      </Link>
+
+                      <p className="text-gray-500 text-sm line-clamp-1">
+                        {product.artist}
+                      </p>
+
+                      <p className="text-sm text-gray-600 mt-2 line-clamp-2">
+                        {product.description}
+                      </p>
+
+                      <p className="mt-3 text-lg">
+                        <span className="line-through text-gray-400 mr-2">
+                          ₹{product.original_price}
+                        </span>
+                        <span className="text-red-600 font-bold">
+                          ₹{product.current_price}
+                        </span>
+                      </p>
+
+                      {/* Button stays at the bottom */}
+                      <button
+                        onClick={() => handleOrderNow(product.slug)}
+                        className="mt-auto w-full py-2 bg-rose-500 text-white rounded-xl text-sm font-medium hover:bg-rose-600 transition-all"
+                      >
+                        Order Now (COD)
+                      </button>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -206,7 +227,7 @@ const Products: React.FC = () => {
               onClick={handleNext}
               className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md border border-gray-300 p-3 rounded-full hover:bg-gray-100 z-10 shadow"
             >
-              <ChevronRight />
+              <ChevronRight size={24} />
             </button>
           </div>
         </>

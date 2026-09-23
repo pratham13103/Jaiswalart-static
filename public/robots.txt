@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jaiswalart-static-git-main-prathameshs-projects-003b6a5b.vercel.app/sitemap.xml

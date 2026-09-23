@@ -1,3 +1,4 @@
+
 [
   {
     "id": 1,
@@ -11,7 +12,9 @@
     "rating": 5,
     "stock": 5,
     "slug": "mandala-blossom",
-    "shape": "Circle"
+    "shape": "Circle",
+    "seo_title": "Mandala Blossom | Handcrafted Mandala Art - Jaiswal Art",
+    "seo_description": "Discover Mandala Blossom, an intricately detailed handcrafted mandala symbolizing harmony and balance. Explore this unique artwork at Jaiswal Art."
   },
   {
     "id": 2,
@@ -25,7 +28,9 @@
     "rating": 4,
     "stock": 3,
     "slug": "sacred-geometry-mandala",
-    "shape": "Square"
+    "shape": "Square",
+    "seo_title": "Sacred Geometry Mandala | Jaiswal Art",
+    "seo_description": "Explore a hand-painted Sacred Geometry Mandala inspired by intricate geometric patterns and spiritual design at Jaiswal Art."
   },
   {
     "id": 3,
@@ -39,7 +44,9 @@
     "rating": 5,
     "stock": 4,
     "slug": "mandala-sunburst",
-    "shape": "Circle"
+    "shape": "Circle",
+    "seo_title": "Mandala Sunburst | Handcrafted Art - Jaiswal Art",
+    "seo_description": "Brighten your room or meditation corner with Mandala Sunburst, a vibrant mandala artwork featuring sunburst patterns."
   },
   {
     "id": 4,
@@ -53,7 +60,9 @@
     "rating": 4,
     "stock": 6,
     "slug": "ocean-waves-mandala",
-    "shape": "Hexagon"
+    "shape": "Hexagon",
+    "seo_title": "Ocean Waves Mandala | Jaiswal Art",
+    "seo_description": "Discover Ocean Waves Mandala, an artwork inspired by marine life and ocean waves, painted in soothing blue and green tones."
   },
   {
     "id": 5,
@@ -67,7 +76,9 @@
     "rating": 3,
     "stock": 2,
     "slug": "paule-serenity",
-    "shape": "Circle"
+    "shape": "Circle",
+    "seo_title": "Paule Serenity | Handcrafted Paule Art - Jaiswal Art",
+    "seo_description": "Explore Paule Serenity, a handcrafted Paule artwork in serene pastel shades, perfect for home décor and gifting."
   },
   {
     "id": 6,
@@ -80,8 +91,10 @@
     "image_url": "/products/6.jpeg",
     "rating": 4,
     "stock": 5,
-    "slug": "mandala-radiance",
-    "shape": "Oval"
+    "slug": "mandala-radiance-6",
+    "shape": "Oval",
+    "seo_title": "Mandala Radiance | Oval Mandala Artwork - Jaiswal Art",
+    "seo_description": "Discover Mandala Radiance, a bright and bold oval mandala artwork designed to bring vibrant energy to your living space."
   },
   {
     "id": 7,
@@ -95,7 +108,9 @@
     "rating": 5,
     "stock": 3,
     "slug": "mandala-twilight",
-    "shape": "Circle"
+    "shape": "Circle",
+    "seo_title": "Mandala Twilight | Purple and Gold Mandala - Jaiswal Art",
+    "seo_description": "Explore Mandala Twilight, an evening-themed mandala artwork with deep purple tones and gold accents for an elegant space."
   },
   {
     "id": 8,
@@ -108,21 +123,25 @@
     "image_url": "/products/8.jpeg",
     "rating": 4,
     "stock": 5,
-    "slug": "mandala-radiance",
-    "shape": "Oval"
+    "slug": "mandala-radiances",
+    "shape": "Oval",
+    "seo_title": "Mandala Radiances | Oval Mandala Artwork - Jaiswal Art",
+    "seo_description": "Discover Mandala Radiances, a bright and bold oval mandala artwork created to add a vibrant touch to your living space."
   },
   {
     "id": 9,
     "name": "Hotel Kailash",
     "artist": "Pratibha Jaiswal",
-    "description": "Handcrafted Mandala Art  Perfect for hotels, cafés, and elegant home décor. Each piece is made with love and fine detailing",
+    "description": "Handcrafted Mandala Art. Perfect for hotels, cafés, and elegant home décor. Each piece is made with love and fine detailing.",
     "original_price": 2000,
     "current_price": 1799,
     "category": "Mandala",
     "image_url": "/products/HotelKailash.jpeg",
     "rating": 5,
     "stock": 5,
-    "slug": "hotel kailash customized mandala art",
-    "shape": "Circle"
+    "slug": "hotel-kailash",
+    "shape": "Circle",
+    "seo_title": "Hotel Kailash | Handcrafted Mandala Art - Jaiswal Art",
+    "seo_description": "Explore Hotel Kailash, handcrafted mandala art with fine detailing, suitable for hotels, cafés, and elegant home décor."
   }
 ]

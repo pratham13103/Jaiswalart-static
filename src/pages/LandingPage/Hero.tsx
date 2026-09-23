@@ -6,10 +6,50 @@ import Testimonials from "./Testimonials";
 import ProductShowcase from "./ProductShowcase";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Hero: React.FC = () => {
   return (
     <div>
+      <Helmet>
+        <title>Jaiswal Art | Unique & Handcrafted Artworks</title>
+
+        <meta
+          name="description"
+          content="Discover unique and handcrafted artworks at Jaiswal Art. Explore exclusive creations from passionate artists or request a custom artwork."
+        />
+
+        <meta name="robots" content="index, follow" />
+
+        <link
+          rel="canonical"
+          href="https://jaiswalart-static-git-main-prathameshs-projects-003b6a5b.vercel.app/"
+        />
+
+        <meta
+          property="og:title"
+          content="Jaiswal Art | Unique & Handcrafted Artworks"
+        />
+        <meta
+          property="og:description"
+          content="Explore handcrafted artworks and discover unique creations from passionate artists."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://jaiswalart-static-git-main-prathameshs-projects-003b6a5b.vercel.app/"
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Jaiswal Art | Unique & Handcrafted Artworks"
+        />
+        <meta
+          name="twitter:description"
+          content="Discover unique handcrafted artworks and explore custom orders at Jaiswal Art."
+        />
+      </Helmet>
       {/* Hero Section with Video Background */}
       <section className="relative h-[90vh] flex flex-col items-center justify-center text-center overflow-hidden">
         {/* Background Video */}
@@ -75,7 +115,7 @@ const Hero: React.FC = () => {
       <ProductShowcase />
 
       {/* Products Section */}
-      <Products />      
+      <Products />
 
       {/* ArtistSpotlight Section */}
       <ArtistSpotlight />

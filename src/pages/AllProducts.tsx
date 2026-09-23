@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LayoutGrid, Grid } from "lucide-react";
 import productsData from "../data/products.json";
 import productsData1 from "../data/products1.json";
-
+import { Helmet } from "react-helmet-async";
 interface Product {
   id: number;
   image_url?: string;
@@ -42,6 +42,50 @@ const AllProducts: React.FC = () => {
 
   return (
     <div className="pt-28 px-6 min-h-screen bg-white">
+      <Helmet>
+        <title>All Products | Handcrafted Art by Jaiswal Arts</title>
+
+        <meta
+          name="description"
+          content="Explore handcrafted Mandala Art, Warli Art, sketches, paintings, and more at Jaiswal Arts. Discover unique artwork and find a piece you love."
+        />
+
+        <meta name="robots" content="index, follow" />
+
+        <link
+          rel="canonical"
+          href="https://jaiswalart-static-git-main-prathameshs-projects-003b6a5b.vercel.app/all-products"
+        />
+
+        <meta
+          property="og:title"
+          content="All Products | Jaiswal Arts"
+        />
+
+        <meta
+          property="og:description"
+          content="Browse handcrafted artwork at Jaiswal Arts, including Mandala Art, Warli Art, sketches, and paintings."
+        />
+
+        <meta
+          property="og:url"
+          content="https://jaiswalart-static-git-main-prathameshs-projects-003b6a5b.vercel.app/all-products"
+        />
+
+        <meta property="og:type" content="website" />
+
+        <meta name="twitter:card" content="summary" />
+
+        <meta
+          name="twitter:title"
+          content="All Products | Jaiswal Arts"
+        />
+
+        <meta
+          name="twitter:description"
+          content="Discover unique handcrafted artwork at Jaiswal Arts."
+        />
+      </Helmet>
       {/* Header and Grid Switch */}
       <div className="mb-8 text-center">
         <h1 className="text-4xl font-bold text-gray-800">All Products</h1>
@@ -51,11 +95,10 @@ const AllProducts: React.FC = () => {
               setGridType("grid4");
               setCurrentPage(1);
             }}
-            className={`p-3 rounded-lg ${
-              gridType === "grid4"
+            className={`p-3 rounded-lg ${gridType === "grid4"
                 ? "bg-gray-800 text-white"
                 : "bg-gray-200 text-gray-700"
-            }`}
+              }`}
             title="4 Grid View"
           >
             <Grid size={28} />
@@ -65,11 +108,10 @@ const AllProducts: React.FC = () => {
               setGridType("grid9");
               setCurrentPage(1);
             }}
-            className={`p-3 rounded-lg ${
-              gridType === "grid9"
+            className={`p-3 rounded-lg ${gridType === "grid9"
                 ? "bg-gray-800 text-white"
                 : "bg-gray-200 text-gray-700"
-            }`}
+              }`}
             title="3 Grid View"
           >
             <LayoutGrid size={28} />
@@ -124,11 +166,10 @@ const AllProducts: React.FC = () => {
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
           className={`px-4 py-2 rounded-lg border border-gray-300 font-medium transition flex items-center gap-1
-      ${
-        currentPage === 1
-          ? "bg-white text-black opacity-50 cursor-not-allowed"
-          : "bg-green-500 text-white hover:bg-green-600 shadow-md"
-      }`}
+      ${currentPage === 1
+              ? "bg-white text-black opacity-50 cursor-not-allowed"
+              : "bg-green-500 text-white hover:bg-green-600 shadow-md"
+            }`}
         >
           &laquo; Previous
         </button>
@@ -145,11 +186,10 @@ const AllProducts: React.FC = () => {
           }
           disabled={currentPage === totalPages}
           className={`px-4 py-2 rounded-lg border border-gray-300 font-medium transition flex items-center gap-1
-      ${
-        currentPage === totalPages
-          ? "bg-white text-black opacity-50 cursor-not-allowed"
-          : "bg-green-500 text-white hover:bg-green-600 shadow-md"
-      }`}
+      ${currentPage === totalPages
+              ? "bg-white text-black opacity-50 cursor-not-allowed"
+              : "bg-green-500 text-white hover:bg-green-600 shadow-md"
+            }`}
         >
           Next &raquo;
         </button>

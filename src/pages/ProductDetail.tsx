@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import productsA from "../data/products.json";
 import productsB from "../data/products1.json";
+import { Helmet } from "react-helmet-async";
 
 interface Product {
   id: number;
@@ -17,6 +18,8 @@ interface Product {
   rating: number;
   stock: number;
   specifications?: string[];
+  seo_title?: string;
+  seo_description?: string;
 }
 
 // Merge both product lists
@@ -58,8 +61,38 @@ const ProductDetail: React.FC = () => {
   if (!product)
     return <p className="text-center text-gray-500">Product not found.</p>;
 
+  const pageTitle =
+    product.seo_title || `${product.name} | Jaiswal Arts`;
+
+  const pageDescription =
+    product.seo_description ||
+    `Explore ${product.name}, a handcrafted artwork by Jaiswal Arts.`;
+
   return (
     <div className="p-4 mt-12">
+      <Helmet>
+        <title>{pageTitle}</title>
+
+        <meta
+          name="description"
+          content={pageDescription}
+        />
+
+        <meta name="robots" content="index, follow" />
+
+        <link
+          rel="canonical"
+          href={`https://jaiswalart-static-git-main-prathameshs-projects-003b6a5b.vercel.app/products/${product.slug}`}
+        />
+
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta
+          property="og:url"
+          content={`https://jaiswalart-static-git-main-prathameshs-projects-003b6a5b.vercel.app/products/${product.slug}`}
+        />
+        <meta property="og:type" content="product" />
+      </Helmet>
       {/* Product Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row gap-6 h-[500px] md:col-span-2">
@@ -69,9 +102,8 @@ const ProductDetail: React.FC = () => {
               <img
                 src={product.images?.[0] || product.image_url}
                 alt={product.name}
-                className={`w-full h-full object-contain rounded-lg transition-opacity duration-300 absolute top-0 left-0 ${
-                  product.images?.[1] ? "hover:opacity-0" : ""
-                }`}
+                className={`w-full h-full object-contain rounded-lg transition-opacity duration-300 absolute top-0 left-0 ${product.images?.[1] ? "hover:opacity-0" : ""
+                  }`}
               />
               {product.images?.[1] && (
                 <img
@@ -143,9 +175,8 @@ const ProductDetail: React.FC = () => {
 
               <Link
                 to={`/order/${product.slug}`}
-                className={`py-2 px-4 rounded-lg text-white bg-green-600 hover:bg-green-700 inline-block ${
-                  product.stock === 0 ? "pointer-events-none opacity-50" : ""
-                }`}
+                className={`py-2 px-4 rounded-lg text-white bg-green-600 hover:bg-green-700 inline-block ${product.stock === 0 ? "pointer-events-none opacity-50" : ""
+                  }`}
               >
                 {product.stock > 0 ? "Order Now (COD)" : "Out of Stock"}
               </Link>
@@ -172,9 +203,8 @@ const ProductDetail: React.FC = () => {
                   <img
                     src={item.images?.[0] || item.image_url}
                     alt={item.name}
-                    className={`w-full h-full object-contain rounded-lg transition-opacity duration-300 absolute top-0 left-0 ${
-                      item.images?.[1] ? "hover:opacity-0" : ""
-                    }`}
+                    className={`w-full h-full object-contain rounded-lg transition-opacity duration-300 absolute top-0 left-0 ${item.images?.[1] ? "hover:opacity-0" : ""
+                      }`}
                   />
                   {item.images?.[1] && (
                     <img

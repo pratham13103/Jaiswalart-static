@@ -26,16 +26,21 @@ const ProductShowcase: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (products.length === 0) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) =>
-        prev + PRODUCTS_PER_PAGE >= products.length ? 0 : prev + PRODUCTS_PER_PAGE
+        (prev + 1) % products.length
       );
     }, AUTO_SCROLL_INTERVAL);
+
     return () => clearInterval(interval);
   }, [products.length]);
 
-  const visibleProducts = products.slice(currentIndex, currentIndex + PRODUCTS_PER_PAGE);
-
+  const visibleProducts = Array.from(
+    { length: Math.min(PRODUCTS_PER_PAGE, products.length) },
+    (_, i) => products[(currentIndex + i) % products.length]
+  );
   return (
     <section className="py-16 bg-gray-50 relative">
       <div className="w-full px-0 lg:px-0 text-center mb-12">
@@ -46,7 +51,7 @@ const ProductShowcase: React.FC = () => {
 
         {/* Longer description */}
         <p className="max-w-3xl mx-auto text-xl font-medium text-gray-700 mb-3">
-          A timeless collection crafted with passion, precision, and purpose —  
+          A timeless collection crafted with passion, precision, and purpose —
           each piece waiting to find its place in your story.
         </p>
 
@@ -57,18 +62,21 @@ const ProductShowcase: React.FC = () => {
       </div>
 
       {/* Desktop: 8 in one view (4x2 layout) */}
-      <div className="hidden md:grid grid-cols-4 grid-rows-2 gap-3 w-full">
+      <div className="hidden md:grid grid-cols-4 gap-4 w-full px-4">
         {visibleProducts.map((product) => (
           <motion.div
             key={product.id}
-            whileHover={{ scale: 1.04 }}
-            className="bg-white p-0 flex items-center justify-center rounded-lg shadow-sm overflow-hidden"
+            whileHover={{ scale: 1.02 }}
+            className="aspect-square overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
           >
-            <Link to={`/products/${product.slug}`} className="w-full">
+            <Link
+              to={`/products/${product.slug}`}
+              className="block h-full w-full"
+            >
               <img
                 src={product.image_url}
-                alt=""
-                className="w-full h-73 object-cover"
+                alt="Artwork"
+                className="h-full w-full object-cover"
               />
             </Link>
           </motion.div>
@@ -76,18 +84,21 @@ const ProductShowcase: React.FC = () => {
       </div>
 
       {/* Mobile: swipeable with flush edges */}
-      <div className="flex md:hidden overflow-x-auto gap-3 no-scrollbar px-0">
+      <div className="flex md:hidden overflow-x-auto gap-4 px-4 no-scrollbar">
         {products.map((product) => (
           <motion.div
             key={product.id}
-            whileHover={{ scale: 1.04 }}
-            className="min-w-[80%] bg-white p-0 flex-shrink-0 rounded-lg shadow-sm overflow-hidden"
+            whileHover={{ scale: 1.02 }}
+            className="aspect-square min-w-[80%] overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
           >
-            <Link to={`/products/${product.slug}`} className="w-full">
+            <Link
+              to={`/products/${product.slug}`}
+              className="block h-full w-full"
+            >
               <img
                 src={product.image_url}
-                alt=""
-                className="w-full h-80 object-cover"
+                alt="Artwork"
+                className="h-full w-full object-cover"
               />
             </Link>
           </motion.div>
